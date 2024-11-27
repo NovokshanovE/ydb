@@ -1,0 +1,47 @@
+2024-11-26 19:47:54.943 INFO  dqrun(pid=1891949, tid=0x0000758FD30C4FC0) [default] dqrun.cpp:869: dqrun ABI version: 2.40.0
+2024-11-26 19:47:55.018 INFO  dqrun(pid=1891949, tid=0x0000758FD30C4FC0) [default] storage.cpp:178: FileStorage initialized in "/tmp/tmpWbncBc/", temporary dir: "/tmp/tmpWbncBc/1891949", files: 0, total size: 0
+2024-11-26 19:47:55.019 DEBUG dqrun(pid=1891949, tid=0x0000758FD30C4FC0) [YT] init.cpp:24: Entering YT API init
+2024-11-26 19:47:55.019 DEBUG dqrun(pid=1891949, tid=0x0000758FD30C4FC0) [YT] init.cpp:39: Using YT global prefix: //
+2024-11-26 19:47:55.027 INFO  dqrun(pid=1891949, tid=0x0000758FD30C4FC0) [generic] client.cpp:34: Connector endpoint: grpcs://connector.yqv2-dev.cloud.yandex.net:50051
+2024-11-26 19:47:55.032 INFO  dqrun(pid=1891949, tid=0x0000758FD30C4FC0) [http gw] yql_dns_gateway.h:85: Filled DNS resolution table based on provided configuration
+2024-11-26 19:47:55.032 INFO  dqrun(pid=1891949, tid=0x0000758FD30C4FC0) [http gw] yql_dns_gateway.h:126: Started DNS table update
+2024-11-26 19:47:55.032 DEBUG dqrun(pid=1891949, tid=0x0000758FD30C4FC0) [http gw] yql_dns_gateway.h:162: New resolution table same as current one. No update is required
+2024-11-26 19:47:55.032 DEBUG dqrun(pid=1891949, tid=0x0000758FC0400640) [http gw] yql_dns_gateway.h:92: DNS Gateway thread is going to start
+2024-11-26 19:47:55.039 DEBUG dqrun(pid=1891949, tid=0x0000758FD30C4FC0) [DQ] interconnect_helpers.cpp:120: Initializing local services
+2024-11-26 19:47:55.039 DEBUG dqrun(pid=1891949, tid=0x0000758FD30C4FC0) [DQ] interconnect_helpers.cpp:147: Initializing node table
+2024-11-26 19:47:55.039 DEBUG dqrun(pid=1891949, tid=0x0000758FD30C4FC0) [DQ] interconnect_helpers.cpp:177: IC Handshake set to 5.000000s
+2024-11-26 19:47:55.039 DEBUG dqrun(pid=1891949, tid=0x0000758FD30C4FC0) [DQ] interconnect_helpers.cpp:178: IC DeadPeer set to 30.000000s
+2024-11-26 19:47:55.039 DEBUG dqrun(pid=1891949, tid=0x0000758FD30C4FC0) [DQ] interconnect_helpers.cpp:179: IC CloseOnIdle set to 300.000000s
+2024-11-26 19:47:55.039 DEBUG dqrun(pid=1891949, tid=0x0000758FD30C4FC0) [DQ] interconnect_helpers.cpp:181: IC SendBufferDieLimitInMB set to 512
+2024-11-26 19:47:55.039 DEBUG dqrun(pid=1891949, tid=0x0000758FD30C4FC0) [DQ] interconnect_helpers.cpp:182: IC TotalInflightAmountOfData set to 0
+2024-11-26 19:47:55.039 DEBUG dqrun(pid=1891949, tid=0x0000758FD30C4FC0) [DQ] interconnect_helpers.cpp:183: IC MergePerPeerCounters set to 0
+2024-11-26 19:47:55.039 DEBUG dqrun(pid=1891949, tid=0x0000758FD30C4FC0) [DQ] interconnect_helpers.cpp:184: IC MergePerDataCenterCounters set to 0
+2024-11-26 19:47:55.039 DEBUG dqrun(pid=1891949, tid=0x0000758FD30C4FC0) [DQ] interconnect_helpers.cpp:185: IC TCPSocketBufferSize set to 16777216
+2024-11-26 19:47:55.039 DEBUG dqrun(pid=1891949, tid=0x0000758FD30C4FC0) [DQ] interconnect_helpers.cpp:187: IC PingPeriod set to 3.000000s
+2024-11-26 19:47:55.039 DEBUG dqrun(pid=1891949, tid=0x0000758FD30C4FC0) [DQ] interconnect_helpers.cpp:188: IC ForceConfirmPeriod set to 1.000000s
+2024-11-26 19:47:55.039 DEBUG dqrun(pid=1891949, tid=0x0000758FD30C4FC0) [DQ] interconnect_helpers.cpp:189: IC LostConnection set to 0.000000s
+2024-11-26 19:47:55.039 DEBUG dqrun(pid=1891949, tid=0x0000758FD30C4FC0) [DQ] interconnect_helpers.cpp:190: IC BatchPeriod set to 0.000000s
+2024-11-26 19:47:55.039 DEBUG dqrun(pid=1891949, tid=0x0000758FD30C4FC0) [DQ] interconnect_helpers.cpp:192: IC MessagePendingTimeout set to 5.000000s
+2024-11-26 19:47:55.039 DEBUG dqrun(pid=1891949, tid=0x0000758FD30C4FC0) [DQ] interconnect_helpers.cpp:194: IC MessagePendingSize set to 18446744073709551615
+2024-11-26 19:47:55.039 DEBUG dqrun(pid=1891949, tid=0x0000758FD30C4FC0) [DQ] interconnect_helpers.cpp:195: IC MaxSerializedEventSize set to 67108000
+2024-11-26 19:47:55.039 DEBUG dqrun(pid=1891949, tid=0x0000758FD30C4FC0) [DQ] interconnect_helpers.cpp:196: IC EnableExternalDataChannel set to 0
+2024-11-26 19:47:55.039 DEBUG dqrun(pid=1891949, tid=0x0000758FD30C4FC0) [DQ] interconnect_helpers.cpp:201: Initializing proxy actors
+2024-11-26 19:47:55.039 DEBUG dqrun(pid=1891949, tid=0x0000758FD30C4FC0) [DQ] interconnect_helpers.cpp:212: Start listener
+2024-11-26 19:47:55.039 INFO  dqrun(pid=1891949, tid=0x0000758FD30C4FC0) [DQ] interconnect_helpers.cpp:215: Start listener ::1:31337 socket: 15
+2024-11-26 19:47:55.039 DEBUG dqrun(pid=1891949, tid=0x0000758FD30C4FC0) [DQ] interconnect_helpers.cpp:228: Actor initialization complete
+2024-11-26 19:47:55.061 INFO  dqrun(pid=1891949, tid=0x0000758FD30C4FC0) [DQ] service_node.cpp:126: Starting GRPC on 31338
+GRpc memory quota was set but disabled due to issues with grpc quoter, to enable it use EnableGRpcMemoryQuota option
+2024-11-26 19:47:55.063 DEBUG dqrun(pid=1891949, tid=0x0000758FD30C4FC0) [DQ] service_node.cpp:33: Start GRPC Listener
+2024-11-26 19:47:55.063 TRACE dqrun(pid=1891949, tid=0x0000758FD30C4FC0) [DQ] service_node.cpp:43: Read next GRPC event
+Parse SQL...
+2024-11-26 19:47:55.201 TRACE dqrun(pid=1891949, tid=0x0000758FD30C4FC0) [perf] yql_facade.cpp:703: Execution of [ParseSql] took 537us
+data/query/0.txt:<main>: Error: Parse Sql
+
+    data/query/0.txt:<main>:6:0: Error: Unexpected token absence : Missing RPAREN 
+
+    	WITH (
+	^
+2024-11-26 19:48:07.353 DEBUG dqrun(pid=1891949, tid=0x0000758FD30C4FC0) [http gw] yql_dns_gateway.h:240: Requested DNS gateway thread termination
+2024-11-26 19:48:07.353 DEBUG dqrun(pid=1891949, tid=0x0000758FC0400640) [http gw] yql_dns_gateway.h:97: DNS Gateway thread is going to stop
+2024-11-26 19:48:07.354 DEBUG dqrun(pid=1891949, tid=0x0000758FC0400640) [http gw] yql_dns_gateway.h:108: DNS Gateway thread stopped
+2024-11-26 19:48:07.354 DEBUG dqrun(pid=1891949, tid=0x0000758FD30C4FC0) [http gw] yql_dns_gateway.h:245: DNS Gateway thread termination finished

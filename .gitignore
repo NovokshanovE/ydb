@@ -90,7 +90,7 @@ bin/config.json
 junk/
 
 
-run_dqrun/q
-run_dqrun/tpc
+# run_dqrun/q
+# run_dqrun/tpc
 ydb/library/benchmarks/gen_queries/q/
 ydb/library/benchmarks/runner/tpc/

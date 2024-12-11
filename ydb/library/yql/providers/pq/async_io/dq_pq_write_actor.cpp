@@ -152,7 +152,7 @@ public:
         , LogPrefix(TStringBuilder() << "SelfId: " << this->SelfId() << ", TxId: " << TxId << ", TaskId: " << taskId << ", PQ sink. ")
         , FreeSpace(freeSpace)
         , TopicClient(Driver, GetTopicClientSettings())
-        , File("/home/novokshanov-e/ITMO/ydb/run_dqrun/data/result/" + std::get<TString>(TxId), EOpenModeFlag::CreateAlways | EOpenModeFlag::WrOnly)
+        , File("/home/evgeny/ydbwork/ydb/run_dqrun/data/result/" + std::get<TString>(TxId), EOpenModeFlag::CreateAlways | EOpenModeFlag::WrOnly)
     { 
         EgressStats.Level = statsLevel;
     }
@@ -193,7 +193,7 @@ public:
 
             TString data(dataCol.AsStringRef());
 
-            TString logData(TStringBuilder() << Now() << " " << TxId << ": " << data << "\n");
+            TString logData(TStringBuilder()  << data << "\n"); //<< Now() << " " << TxId << ": "
             File.Write(logData.data(), logData.size());
 
             LWPROBE(PqWriteDataToSend, TString(TStringBuilder() << TxId), SinkParams.GetTopicPath(), data);

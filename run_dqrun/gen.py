@@ -157,9 +157,10 @@ def gen_cell(args: argparse.Namespace, row_index: int, column_type: str):
     elif column_type == "str64":
         return int_to_str(value, 64)
     elif column_type == "Datetime":
-        base_time = datetime.datetime(2020, 1, 1, 0, 0, 0)
-        new_time = base_time + datetime.timedelta(seconds=value)
-        return new_time.strftime("%Y-%m-%d %H:%M:%S")
+        # base_time = datetime.datetime(2020, 1, 1, 0, 0, 0)
+        # new_time = base_time + datetime.timedelta(seconds=value)
+        # return new_time.strftime("%Y-%m-%d %H:%M:%S")
+        return get_timer()*20000
     else:
         raise RuntimeError(f"Unsupported column type: {column_type}")
 

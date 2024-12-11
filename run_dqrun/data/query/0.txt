@@ -1,32 +1,32 @@
 PRAGMA FeatureR010="prototype";
 
-$match =
-    SELECT * FROM (SELECT m.*, CAST(m.time * 1000 AS Timestamp) AS time_ms
-FROM pq.`match` AS m
+$data = SELECT *
+FROM pq.`match`
 WITH (
     FORMAT=json_each_row,
     SCHEMA
     (
         c0 Uint64,c1 Uint64,c2 Uint64,c3 Uint64,c4 Uint64,c5 Uint64,c6 Uint64,c7 Uint64,c8 Uint64,c9 Uint64,c10 Uint64,c11 Uint64,c12 Uint64,c13 Uint64,c14 Uint64,c15 Uint64,c16 Uint64,c17 Uint64,c18 Uint64,c19 Uint64,c20 String,c21 String,c22 String,c23 String,c24 String,c25 String,c26 String,c27 String,c28 String,c29 String,c30 String,c31 String,c32 String,c33 String,c34 String,c35 String,c36 String,c37 String,c38 String,c39 String,c40 Uint64,time Uint64
     )
-)) AS sub
+);
+
+$match =
+    SELECT * FROM $data
     MATCH_RECOGNIZE(
-        ORDER BY sub.time_ms
-        --CAST(time AS Timestamp)
+        ORDER BY CAST(time AS Timestamp)
         MEASURES
             LAST(M0.time) AS m0_dt,
             LAST(M1.time) AS m1_dt
         ONE ROW PER MATCH
-        PATTERN ( M0 M1)
+        PATTERN ( M0 NOT_M1* M1 )
         DEFINE
             M0 AS
                 M0.c0 = 0,
+            NOT_M1 AS
+                NOT_M1.c0 != 1,
             M1 AS
-                M1.c0 != 1
+                M1.c0 = 1
     );
-
-
-
---WHERE c0 == 0UL;
+    
 INSERT INTO pq.`match`
 SELECT ToBytes(Unwrap(Yson::SerializeJson(Yson::From(TableRow())))) FROM $match;

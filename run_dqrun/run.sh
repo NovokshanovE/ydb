@@ -15,30 +15,30 @@ mkdir -p data/result
 # python3 gen.py \
 #     --rows-number=$ROWS_NUM \
 #     --queries-number=$QUERIES_NUM \
-#     --queries-dir=/home/novokshanov-e/ITMO/ydb/run_dqrun/data/query \
-#     --rows-file=/home/novokshanov-e/ITMO/ydb/run_dqrun/data/data.json \
+#     --queries-dir=/home/evgeny/ydbwork/ydb/run_dqrun/data/query \
+#     --rows-file=/home/evgeny/ydbwork/ydb/run_dqrun/data/data.json \
 #     # | cpipe -vt > data/y_pipe 2> speed.txt &
 # PYTHON_PID=$!
 # printf "python pid = %d\n" $PYTHON_PID
 
 # > log.txt
-/home/novokshanov-e/ITMO/ydb/ydb/library/yql/tools/dqrun/dqrun \
+/home/evgeny/ydbwork/ydb/ydb/library/yql/tools/dqrun/dqrun \
     --verbosity=8 \
     --sql \
     --program=data/query/0.txt \
-    --gateways-cfg=/home/novokshanov-e/ITMO/ydb/ydb/library/yql/tools/dqrun/examples/gateways.conf \
-    --fs-cfg=/home/novokshanov-e/ITMO/ydb/ydb/library/yql/tools/dqrun/examples/fs.conf \
-    --fq-cfg=/home/novokshanov-e/ITMO/ydb/ydb/library/yql/tools/dqrun/examples/fq.conf \
-    --udfs-dir=/home/novokshanov-e/ITMO/ydb/ydb/library/yql/udfs/common \
+    --gateways-cfg=/home/evgeny/ydbwork/ydb/ydb/library/yql/tools/dqrun/examples/gateways.conf \
+    --fs-cfg=/home/evgeny/ydbwork/ydb/ydb/library/yql/tools/dqrun/examples/fs.conf \
+    --fq-cfg=/home/evgeny/ydbwork/ydb/ydb/library/yql/tools/dqrun/examples/fq.conf \
+    --udfs-dir=/home/evgeny/ydbwork/ydb/ydb/library/yql/udfs/common \
     --emulate-pq=match@data/data.json \
-    --threads=10 \
+    --threads=4 \
     &> log.txt 
 DQRUN_PID=$!
 printf "dqrun pid = %d\n" $DQRUN_PID
 
 # > time.txt
 # python3 killer.py \
-#     --output=/home/novokshanov-e/ITMO/ydb/ydb/library/yql/tools/dqrun/data/result \
+#     --output=/home/evgeny/ydbwork/ydb/ydb/library/yql/tools/dqrun/data/result \
 #     --rows-number=$ROWS_NUM \
 #     --queries-number=$QUERIES_NUM \
 #     &> time.txt &

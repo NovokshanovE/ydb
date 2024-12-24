@@ -160,7 +160,7 @@ def gen_cell(args: argparse.Namespace, row_index: int, column_type: str):
         # base_time = datetime.datetime(2020, 1, 1, 0, 0, 0)
         # new_time = base_time + datetime.timedelta(seconds=value)
         # return new_time.strftime("%Y-%m-%d %H:%M:%S")
-        return get_timer()*20000
+        return get_timer()*500000
     else:
         raise RuntimeError(f"Unsupported column type: {column_type}")
 

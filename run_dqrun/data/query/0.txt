@@ -27,6 +27,10 @@ $match =
             M1 AS
                 M1.c0 = 1
     );
-    
+
+INSERT INTO pq.`match`
+SELECT ToBytes(Unwrap(Yson::SerializeJson(Yson::From(TableRow())))) FROM $match;
+
+
 INSERT INTO pq.`match`
 SELECT ToBytes(Unwrap(Yson::SerializeJson(Yson::From(TableRow())))) FROM $match;

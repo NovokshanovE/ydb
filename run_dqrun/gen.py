@@ -148,26 +148,60 @@ def gen_column_types(column_num: int) -> List[str]:
 #     else:
 #         raise RuntimeError(f"Unsupported column type: {column_type}")
 
-def gen_cell(args: argparse.Namespace, row_index: int, column_type: str):
-    value = row_index % (2 * args.queries_number)
-    if column_type == "uint64":
-        return value
-    elif column_type == "str32":
-        return int_to_str(value, 32)
-    elif column_type == "str64":
-        return int_to_str(value, 64)
-    elif column_type == "Datetime":
-        # base_time = datetime.datetime(2020, 1, 1, 0, 0, 0)
-        # new_time = base_time + datetime.timedelta(seconds=value)
-        # return new_time.strftime("%Y-%m-%d %H:%M:%S")
-        return get_timer()*500000
-    else:
-        raise RuntimeError(f"Unsupported column type: {column_type}")
+# def gen_cell(args: argparse.Namespace, row_index: int, column_type: str):
+#     value = row_index % (2 * args.queries_number)
+#     if column_type == "uint64":
+#         return value
+#     elif column_type == "str32":
+#         return int_to_str(value, 32)
+#     elif column_type == "str64":
+#         return int_to_str(value, 64)
+#     elif column_type == "Datetime":
+#         # base_time = datetime.datetime(2020, 1, 1, 0, 0, 0)
+#         # new_time = base_time + datetime.timedelta(seconds=value)
+#         # return new_time.strftime("%Y-%m-%d %H:%M:%S")
+#         return get_timer()*500000
+#     else:
+#         raise RuntimeError(f"Unsupported column type: {column_type}")
 
 
 
 def gen_row(args: argparse.Namespace, row_index: int, schema: Schema) -> Row:
     return [gen_cell(args, row_index, column_type) for column_type in schema.column_types]
+
+def gen_cell(args: argparse.Namespace, row_index: int, column_type: str):
+    if column_type == "uint64":
+        groups = {
+        'A': [1],
+        'B': [2, 3],
+        'C': [4],
+        'D': [5],
+        'noise': [1, 2, 3, 4, 5]  # Для случайных значений (шум)
+        }
+        
+        # Логика генерации паттернов (сложный паттерн)
+        if row_index % 50 in range(0, 3):  # Генерируем A
+            value = random.choice(groups['A'])
+        elif row_index % 50 in range(3, 10):  # Генерируем несколько B
+            value = random.choice(groups['B'])
+        elif row_index % 50 in range(10, 13):  # Генерируем C
+            value = random.choice(groups['C'])
+        elif row_index % 50 in range(13, 15):  # Генерируем D
+            value = random.choice(groups['D'])
+        else:  # Случайные шумовые данные
+            value = random.choice(groups['noise'])
+        return value
+    elif column_type == "str32":
+        return int_to_str(row_index, 32)
+    elif column_type == "str64":
+        return int_to_str(row_index, 64)
+    elif column_type == "Datetime":
+        return get_timer() * 500000
+    else:
+        raise RuntimeError(f"Unsupported column type: {column_type}")
+
+# def gen_row(args: argparse.Namespace, row_index: int, schema: Schema) -> Row:
+#     return [gen_cell(args, row_index, schema.column_types[i], i) for i in range(len(schema.column_types))]
 
 
 def gen_schema(name: str, column_names: List[str], column_types: List[str]) -> Schema:
@@ -210,7 +244,8 @@ def gen_query(query_index: int, schema: Schema) -> str:
     column_name = schema.column_names[query_index % len(schema.column_names)]
     column_type = schema.column_types[query_index % len(schema.column_types)]
     value = gen_query_value(query_index, column_type)
-    return f"""$match = SELECT *
+    return f"""PRAGMA FeatureR010="prototype";
+$data = SELECT *
 FROM {schema.name}
 WITH (
     FORMAT=json_each_row,
@@ -218,8 +253,24 @@ WITH (
     (
         {",".join([name + " " + type_to_sql(type) for name, type in zip(schema.column_names, schema.column_types)])}
     )
-)
-WHERE {column_name} == {print_query_value(value, column_type)};
+);
+--WHERE {column_name} == {print_query_value(value, column_type)};
+$match =
+    SELECT * FROM $data
+    MATCH_RECOGNIZE(
+        ORDER BY CAST(time AS Timestamp)
+        MEASURES
+            LAST(A.time) AS m0_start_dt,
+            LAST(D.time) AS m1_end_dt
+        ONE ROW PER MATCH
+        PATTERN (A B+ (C1 | C2) D)
+        DEFINE
+            A AS A.c0 = 1,              -- A: Начинается с числа 1
+            B AS (B.c0 = 2 OR B.c0 = 3),        -- B: Одно или несколько чисел 2 или 3
+            C1 AS C1.c0 = 4,             -- C1: Значение 4
+            C2 AS C2.c0 = 5, -- C2: Значение 5, следующее за 3
+            D AS D.c0 = 5 
+    );
 INSERT INTO pq.`match`
 SELECT ToBytes(Unwrap(Yson::SerializeJson(Yson::From(TableRow())))) FROM $match;
 """
